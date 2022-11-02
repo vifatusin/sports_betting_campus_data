@@ -1,0 +1,264 @@
+---
+title: "gambling_policy_schools_analysis"
+author: "Victoria Ifatusin"
+date: "11/2/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Some Notes
+Some entries still have no schools next to them. Some links still bring me to emails that I don't have access to. Please put in these schools and put in the appropriate link. Some entries don't have any links at all, so please see me regarding that as well.
+
+For the submissions with NA in the link...
+
+Note for Derek W. -- I might need to go over the "unclear" policies, because those submissions have information in them.  
+
+```{r}
+# Turn off scientific notation
+options(scipen=999)
+# Load the tidyverse and other packages.
+library(tidyverse)
+library(janitor)
+```
+
+```{r}
+# Read in the data.
+gambling_policy_tracker <- read_csv("gambling_policy_tracker.csv")
+
+# Cleaning column names
+gambling_policy_tracker <- gambling_policy_tracker %>% 
+  clean_names() %>% 
+  rename(school_policy_exist = does_the_school_have_a_policy_on_sports_gambling_betting_that_extends_beyond_ncaa_policy) %>% 
+  rename(allowed = is_sports_gambling_betting_allowed) %>% 
+  rename(state_law = does_the_response_cite_state_law) %>% 
+  rename(covered = who_is_covered) %>% 
+  rename(campus_allowed = is_sports_gambling_allowed_on_or_off_campus) %>% 
+  rename(detail = detail_if_there_isnt_any_detail_put_n_a) %>% 
+  rename(interesting = rate_the_policys_interestingness_on_a_scale_from_1_5) %>% 
+  rename(specifics = give_specific_key_words_or_phrases) %>% 
+  rename(advert_policy_exist = does_the_school_have_a_policy_on_the_advertising_or_promotion_of_gambling_or_gaming_products_and_services) %>% 
+  rename(detail_advert = briefly_describe_the_advertising_policy_if_theres_no_policy_or_its_unclear_please_put_n_a)
+```
+
+## State
+
+As of Nov 1, 2022, ten Virginia schools have gotten back to us regarding whether or not they have a sports betting policy, the highest of the other schools. California comes in with eight, Louisiana comes in with six, and Florida, Ohio, and South Carolina come in with five each. 
+
+I looked into the ten schools from Virginia (which are all done by the homie Derek), and eight of them don't have a policy that extends beyond NCAA policies, but one of the schools have policy on advertising in Virginia, which is Radford. As for the schools that do have a policy beyond NCAA, one interesting school from Virginia (James Madison), makes illegal betting prhibited, but students can bet in their own dorms. 
+
+```{r}
+# state responses
+gambling_policy_tracker %>% 
+  group_by(state) %>% 
+  summarise(no_of_policy = n()) %>% 
+  arrange(desc(no_of_policy))
+
+# VA had the most, so look into those schools. 
+gambling_policy_tracker %>% 
+  filter(state == "VA" & school_policy_exist == "No")
+gambling_policy_tracker %>% 
+  filter(state == "VA" & school_policy_exist == "Yes")
+
+# CA
+gambling_policy_tracker %>% 
+  filter(state == "CA")
+
+# LA
+gambling_policy_tracker %>% 
+  filter(state == "LA" & interesting == "4") %>% 
+  select(detail) %>% 
+  view()
+
+# FL
+gambling_policy_tracker %>% 
+  filter(state == "FL")
+
+# OH
+gambling_policy_tracker %>% 
+  filter(state == "OH")
+
+# SC
+gambling_policy_tracker %>% 
+  filter(state == "SC")
+```
+
+## Existence of a school policy that extends beyond NCAA
+
+```{r}
+gambling_policy_tracker %>% 
+  group_by(school_policy_exist) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count)) %>% # no = 37, yes = 28, unclear = 3
+  ggplot() +
+  geom_bar(aes(x=reorder(school_policy_exist,count), weight=count), fill = "blue") +
+  coord_flip() + 
+  labs(
+    title="Existence of sports betting policies",
+    x = "",
+    y = "amount"
+  ) 
+
+gambling_policy_tracker %>% 
+  filter(school_policy_exist == "No") %>% 
+  group_by(state) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+```
+
+## The number of schools that allow it
+
+```{r}
+gambling_policy_tracker %>% 
+  group_by(allowed) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count)) %>% # no = 49, yes = 17, unclear = 2
+  ggplot() +
+  geom_bar(aes(x=reorder(allowed,count), weight=count), fill = "blue") +
+  coord_flip() + 
+  labs(
+    title="Number of schools that allow or don't allow sports betting",
+    x = "",
+    y = "amount"
+  ) 
+
+gambling_policy_tracker %>% 
+  filter(allowed == "No") %>% 
+  group_by(state) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+```
+
+## Mention of state law
+
+```{r}
+gambling_policy_tracker %>% 
+  group_by(state_law) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count)) %>% # no = 44, yes = 24
+  ggplot() +
+  geom_bar(aes(x=reorder(state_law,count), weight=count), fill = "blue") +
+  coord_flip() + 
+  labs(
+    title="Number of schools that mentioned or didn't mention state law",
+    x = "",
+    y = "amount"
+  ) 
+
+gambling_policy_tracker %>% 
+  filter(state_law == "No") %>% 
+  group_by(state) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+```
+
+```{r}
+gambling_policy_tracker %>% 
+  group_by(covered) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count)) %>% # all = 52, on-campus = 12, athletes = 4
+  ggplot() +
+  geom_bar(aes(x=reorder(covered,count), weight=count), fill = "blue") +
+  coord_flip() + 
+  labs(
+    title="Type of students that are covered in the policy",
+    x = "",
+    y = "amount"
+  ) 
+
+# the student athletes had to be before the change, reminder that no one should be putting information in the form spreadsheet, only use the form.
+
+gambling_policy_tracker %>% 
+  filter(covered == "All") %>% 
+  group_by(state) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+```
+
+## Campus allowed
+
+```{r}
+gambling_policy_tracker %>% 
+  group_by(campus_allowed) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count)) %>% # neither = 33, both = 17, off = 16, on = 2
+  ggplot() +
+  geom_bar(aes(x=reorder(campus_allowed,count), weight=count), fill = "blue") +
+  coord_flip() + 
+  labs(
+    title="Where is sports betting mainly allowed?",
+    x = "",
+    y = "amount"
+  ) 
+
+gambling_policy_tracker %>% 
+  filter(campus_allowed == "Neither") %>% 
+  group_by(state) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+```
+
+## Existence of an advertising policy 
+
+```{r}
+gambling_policy_tracker %>% 
+  group_by(advert_policy_exist) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count)) %>% # no = 51, unclear = 13, yes = 4
+  ggplot() +
+  geom_bar(aes(x=reorder(advert_policy_exist,count), weight=count), fill = "blue") +
+  coord_flip() + 
+  labs(
+    title="The number of schools that have or don't have an advertising policy",
+    x = "",
+    y = "amount"
+  ) 
+
+gambling_policy_tracker %>% 
+  filter(advert_policy_exist == "No") %>% 
+  group_by(state) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+```
+# Interesting
+
+```{r}
+gambling_policy_tracker %>% 
+  group_by(interesting) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count)) %>% # 1 = 26, 2 = 20, 3 = 17, 4 = 4, 5 = 1
+  ggplot() +
+  geom_bar(aes(x=reorder(interesting,count), weight=count), fill = "blue") +
+  coord_flip() + 
+  labs(
+    title="Interestingness scale",
+    x = "",
+    y = "amount"
+  ) 
+
+gambling_policy_tracker %>% 
+  filter(interesting == "5") %>% 
+  group_by(state) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+
+gambling_policy_tracker %>% 
+  filter(interesting == "4") %>% 
+  group_by(state) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+
+gambling_policy_tracker %>% 
+  filter(interesting == "3") %>% 
+  group_by(state) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+
+```
+
+## Result?
+
+Virginia kept coming up when looking at which states have the highest of the highest answer to the questions asked. But it didn't come up when looking at potential interesting states.
+
