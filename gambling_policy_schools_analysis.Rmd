@@ -83,6 +83,20 @@ gambling_policy_tracker %>%
 # SC
 gambling_policy_tracker %>% 
   filter(state == "SC")
+
+gambling_policy_tracker %>% 
+  filter(school_policy_exist == "Yes") %>% 
+  group_by(state) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count)) %>% # neither = 33, both = 17, off = 16, on = 2
+  ggplot() +
+  geom_bar(aes(x=reorder(state,count), weight=count), fill = "blue") +
+  coord_flip() + 
+  labs(
+    title="Where is sports betting mainly allowed?",
+    x = "",
+    y = "amount"
+  ) 
 ```
 
 ## Existence of a school policy that extends beyond NCAA
@@ -125,7 +139,7 @@ gambling_policy_tracker %>%
   ) 
 
 gambling_policy_tracker %>% 
-  filter(allowed == "No") %>% 
+  filter(allowed == "Yes" & state == "FL") %>% 
   group_by(state) %>% 
   summarise(count = n()) %>% 
   arrange(desc(count))
