@@ -22,11 +22,13 @@ options(scipen=999)
 # Load the tidyverse and other packages.
 library(tidyverse)
 library(janitor)
+library(ggplot2)
+library(dplyr)
 ```
 
 ```{r}
 # Read in the data.
-gambling_policy_tracker <- read_csv("gambling_policy_tracker.csv")
+gambling_policy_tracker <- read_csv("gambling_policy_tracker_updated.csv")
 
 # Cleaning column names
 gambling_policy_tracker <- gambling_policy_tracker %>% 
@@ -41,7 +43,150 @@ gambling_policy_tracker <- gambling_policy_tracker %>%
   rename(specifics = give_specific_key_words_or_phrases) %>% 
   rename(advert_policy_exist = does_the_school_have_a_policy_on_the_advertising_or_promotion_of_gambling_or_gaming_products_and_services) %>% 
   rename(detail_advert = briefly_describe_the_advertising_policy_if_theres_no_policy_or_its_unclear_please_put_n_a)
+
+gambling_policy_tracker <- gambling_policy_tracker[-c(33, 34), ]
 ```
+
+## States that make sport betting illegal
+
+https://www.washingtonpost.com/sports/2022/08/29/sports-betting-laws-by-state/ 
+
+Question: Some states are illegal in person, but allowed online. Are we taking that into consideration?
+
+```{r}
+gambling_policy_tracker <- gambling_policy_tracker %>% 
+  mutate(legal_illegal = case_when(
+    state == 'AL' | state == 'AK' | state == 'CA' | state == 'FL' | state == 'GA' | 
+    state == 'HI' | state == 'ID' | state == 'KY' | state == 'MN' | state == 'MO' | 
+    state == 'OK' | state == 'SC' | state == 'TX' | state == 'UT' | state == 'VT' ~
+    "illegal",
+    state == 'AZ' | state == 'AR' | state == 'CO' | state == 'CT' | state == 'DE' | 
+    state == 'IL' | state == 'IN' | state == 'IA' | state == 'KS' | state == 'LA' |
+    state == 'ME' | state == 'MD' | state == 'MA' | state == 'MI' | state == 'MS' |
+    state == 'MT' | state == 'NE' | state == 'NV' | state == 'NH' | state == 'NJ' |
+    state == 'NM' | state == 'NY' | state == 'NC' | state == 'ND' | state == 'OH' | 
+    state == 'OR' | state == 'PA' | state == 'RI' | state == 'SD' | state == 'TN' |
+    state == 'VA' | state == 'WA' | state == 'WV' | state == 'WI' | state == 'WY' ~ 
+    "legal"))
+```
+
+### Mark's Questions
+
+
+```{r}
+# Pie Chart of schools responded vs, schools not responded: 
+
+schools <- data.frame(
+  group = c("responsive_schools", "unresponsive_schools"),
+  value = c(69, 162)
+  )
+
+pie(schools$value, labels = schools$group)
+
+# Compute the position of labels
+schools <- schools %>% 
+  arrange(desc(group)) %>%
+  mutate(percent = value / sum(schools$value) *100) %>%
+  mutate(ypos = cumsum(percent)- 0.5*percent ) %>% 
+  mutate(percent = round(schools$percent, digits = 1))
+
+# Basic piechart
+ggplot(schools, aes(x="", y=percent, fill=group)) +
+  geom_bar(stat="identity", width=1, color="white") +
+  coord_polar("y", start=0) +
+  theme_void() +
+  geom_text(aes(y = ypos, label = percent), color = "white", size=6) +
+  labs(title = 
+  "Out of 231 schools, we have heard back from 69 of them, 
+                causing a remainder of 162 schools.") 
+```
+
+```{r}
+### Schools that are in states where sports betting is legalized. 
+
+gambling_policy_tracker %>% 
+  filter(legal_illegal == "legal")
+
+legal_schools <- gambling_policy_tracker %>%
+  group_by(legal_illegal) %>% 
+  summarise(count = n()) %>% 
+  mutate(percentage = (count/69)*100) %>% 
+  mutate(percentage = round(legal_schools$percentage, digits = 1)) 
+
+legal_schools %>%   
+  ggplot() +
+  geom_bar(aes(x=reorder(legal_illegal, count), weight=count), fill = "blue") +
+  coord_flip() + 
+  geom_text(aes(x=legal_illegal, y=count, label = percentage), hjust=1.5, vjust=0,
+            colour = "white") + 
+  labs(
+    title="No & Percentage of schools in states where sports betting is illegal and legal",
+    x = "States",
+    y = "Count (#)"
+  )
+
+# Out of the 69 schools we've heard from, 42 of them are in states where sports betting is legalized. 
+
+
+
+### Schools that are in states where sports betting is allowed, and have a policy on sports betting. 
+gambling_policy_tracker %>% 
+  filter(legal_illegal == "legal") %>% 
+  filter(school_policy_exist == "Yes")
+
+pctg = (16/69)*100
+
+# Out of those 42, only 16 of those schools have a policy on sports betting. The percentage i2 23.2
+
+
+### Top 5 states where sports betting is legal, and we've heard back from their schools. 
+schools_in_legal_states <- gambling_policy_tracker %>% 
+  filter(legal_illegal == "legal") %>% 
+  group_by(state) %>% 
+  summarise(num_states = n()) %>% 
+  arrange(desc(num_states)) %>% 
+  mutate(pcent = (num_states/69)*100) %>% 
+  head(5) %>% 
+  mutate(pcent = round(schools_in_legal_states$pcent, digits = 1))
+
+schools_in_legal_states %>% 
+  ggplot() +
+  geom_bar(aes(x=reorder(state, num_states), weight=num_states), fill = "blue") +
+  coord_flip() + 
+  geom_text(aes(x=state, y=num_states, label = pcent), hjust=1.5, vjust=0,
+            colour = "white") + 
+  labs(
+    title="Top 5 Percentages of schools in states we've heard back from where 
+    sports betting is legal",
+    x = "States",
+    y = "Count (#)"
+  )
+
+
+### Top 5 states where sports betting is legal and those schools in that state have a policy.
+legal_schools_policies <- gambling_policy_tracker %>% 
+  filter(legal_illegal == "legal" & school_policy_exist == "Yes") %>% 
+  group_by(state) %>% 
+  summarise(num_states = n()) %>% 
+  arrange(desc(num_states)) %>% 
+  mutate(pct = (num_states/69)*100) %>% 
+  head(5) %>% 
+  mutate(pct = round(legal_schools_policies$pct, digits = 1))
+
+legal_schools_policies %>% 
+  ggplot() +
+  geom_bar(aes(x=reorder(state, num_states), weight=num_states), fill = "blue") +
+  coord_flip() + 
+  geom_text(aes(x=state, y=num_states, label = pct), hjust=1.5, vjust=0,
+            colour = "white") + 
+  labs(
+    title="Percentages of the states where sports betting is legal, and schools have a
+    policy",
+    x = "States",
+    y = "Count (#)"
+  )
+```
+
 
 ## State
 
