@@ -26,6 +26,90 @@ library(ggplot2)
 library(dplyr)
 ```
 
+##### Analysis as of 11/9/2022
+
+```{r}
+all_schools <- read_csv("list_of_school_states.csv")
+
+all_schools <- all_schools %>% 
+  clean_names()
+
+all_schools <- all_schools %>% 
+  mutate(legal_illegal = case_when(
+    state == 'Alabama' | state == 'Alaska' | state == 'California' | state == 'Florida' |
+    state == 'Georgia' | state == 'Hawaii' | state == 'Idaho' | state == 'Kentucky' | 
+    state == 'Minnesota' | state == 'Missouri' | state == 'Oklahoma' | state == 'South Carolina' | state == 'Texas' | state == 'Utah' | state == 'Vermont' ~ "illegal",
+    state == 'Arizona' | state == 'Arkansas' | state == 'Colorado' | state == 'Connecticut' |
+    state == 'Delaware' | state == 'Illinois' | state == 'Indiana' | state == 'Iowa' | state
+    == 'Kansas' | state == 'Louisiana' | state == 'Maine' | state == 'Maryland' | state ==
+    'Massachusetts' | state == 'Michigan' | state == 'Mississippi' | state == 'Montana' |
+    state == 'Nebraska' | state == 'Nevada' | state == 'Las Vegas' | state == 'New Hampshire'
+    | state == 'New Jersey'
+    | state == 'New Mexico' | state == 'New York' | state == 'North Carolina' | state ==
+    'North Dakota' | state == 'Ohio' | state == 'Oregon' | state == 'Pennsylvania' | state ==
+    'Rhode Island' | state == 'South Dakota' | state == 'Tennessee' | state == 'Tennesse' |
+    state == 'Virginia' | state == 'Washington' | state == 'West Virginia' | state ==
+    'Wisconsin' | state == 'Wyoming' ~ "legal"))
+
+#I need to clean this data, Las Vegas is a state, and Tennesse, not Tennessee, is also a state.  
+
+all_schools %>% 
+  group_by(legal_illegal) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+
+gambling_policy_tracker %>% 
+  group_by(legal_illegal) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+
+gambling_policy_tracker %>% 
+  filter(legal_illegal == "legal") %>% 
+  group_by(allowed) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+
+# Total = 42, no = 28, yes = 13. 
+
+prohibited_perc = (28/42)*100
+
+```
+
+## Regional Figures
+
+```{r}
+gambling_policy_tracker <- gambling_policy_tracker %>% 
+  mutate(region = case_when(
+    state == 'CT' | state == 'ME' | state == 'MA' | state == 'NH' | state == 'RI' |
+    state == 'VT' | state == 'NJ' | state == 'NY' | state == 'PA' ~ "Northeast",
+    state == 'IN' | state == 'IL' | state == 'MI' | state == 'OH' | state == 'WI' |
+    state == 'IA' | state == 'NE' | state == 'KS' | state == 'ND' | state == 'MN' |
+    state == 'SD' | state == 'MO' ~ "Midwest",
+    state == 'DE' | state == 'FL' | state == 'GA' | state == 'MD' | state == 'NC' |
+    state == 'SC' | state == 'VA' | state == 'WV' | state == 'AL' | state == 'KY' |
+    state == 'MS' | state == 'TN' | state == 'AR' | state == 'LA' | state == 'OK' |
+    state == 'TX' ~ "South",
+    state == 'AZ' | state == 'CO' | state == 'ID' | state == 'NM' | state == 'MT' |
+    state == 'UT' | state == 'NV' | state == 'WY' | state == 'AK' | state == 'CA' |
+    state == 'HI' | state == 'OR' | state == 'WA' ~ "West"))
+
+
+gambling_policy_tracker %>% 
+  filter(legal_illegal == "legal") %>% 
+  group_by(region) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+
+gambling_policy_tracker %>% 
+  filter(legal_illegal == "legal" & allowed == "No") %>% 
+  group_by(region) %>% 
+  summarise(count = n()) %>% 
+  arrange(desc(count))
+
+```
+
+##### Analysis as of 11/9/2022
+
 ```{r}
 # Read in the data.
 gambling_policy_tracker <- read_csv("gambling_policy_tracker_updated.csv")
@@ -99,6 +183,9 @@ ggplot(schools, aes(x="", y=percent, fill=group)) +
   labs(title = 
   "Out of 231 schools, we have heard back from 69 of them, 
                 causing a remainder of 162 schools.") 
+
+
+
 ```
 
 ```{r}
@@ -187,6 +274,7 @@ legal_schools_policies %>%
   )
 ```
 
+##### Older Analysis
 
 ## State
 
@@ -420,4 +508,3 @@ gambling_policy_tracker %>%
 ## Result?
 
 Virginia kept coming up when looking at which states have the highest of the highest answer to the questions asked. But it didn't come up when looking at potential interesting states.
-
