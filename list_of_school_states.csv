@@ -1,0 +1,232 @@
+UID,School,State
+1,Alabama,Alabama
+2,Alabama-Birmingham (UAB),Alabama
+3,Auburn,Alabama
+4,Troy,Alabama
+5,Southern Alabama,Alabama
+6,Alabama A&M,Alabama
+7,Alabama State,Alabama
+8,Jacksonville State,Alabama
+9,North Alabama,Alabama
+10,Arizona  ,Arizona
+11,Arizona State,Arizona
+12,Northern Arizona,Arizona
+13,Arkansas Little Rock,Arkansas
+14,Arkansas-Pine Bluff,Arkansas
+15,Central Arkansas,Arkansas
+16,Arkansas,Arkansas
+17,Arkansas State,Arkansas
+18,UC Davis,California
+19,UC Irvine,California
+20,San Diego State,California
+21,UCLA,California
+22,Long Beach State,California
+23,Sacramento State,California
+24,San Jose State,California
+25,UC Riverside,California
+26,UC Santa Barbara,California
+27,Fresno State,California
+28,Cal ,California
+29,Cal Poly,California
+30,Cal State Bakersfield,California
+31,Cal State Fullerton,California
+32,Cal State Northridge,California
+33,Connecticut,Connecticut
+34,Central Connecticut State,Connecticut
+35,Air Force,Colorado
+36,Colorado,Colorado
+37,Colorado State,Colorado
+38,Northern Colorado,Colorado
+39,Delaware,Delaware
+40,Delaware State,Delaware
+41,Central Florida,Florida
+42,Florida Atlantic,Florida
+43,Florida,Florida
+44,South Florida,Florida
+45,Florida Gulf Coast,Florida
+46,Florida International,Florida
+47,North Florida,Florida
+48,Florida A&M,Florida
+49,Florida State**,Florida
+50,Savannah State,Georgia
+51,Kennesaw State**,Georgia
+52,Georgia**,Georgia
+53,Georgia Southern,Georgia
+54,Georgia State,Georgia
+55,Georgia Tech**,Georgia
+56,Hawaii,Hawaii
+57,Idaho,Idaho
+58,Idaho State,Idaho
+59,Boise State,Idaho
+60,Eastern Illinois,Illinois
+61,Illinois State,Illinois
+62,Chicago State,Illinois
+63,Northern Illinois,Illinois
+64,Southern Illinois,Illinois
+65,Western Illinois,Illinois
+66,Illinois Chicago (UIC),Illinois
+67,Southern Illinois Edwardsville,Illinois
+68,Illinois,Illinois 
+69,Purdue Fort Wayne,Indiana
+70,Ball State,Indiana
+71,Purdue,Indiana
+72,Indiana State,Indiana
+73,IUPUI,Indiana
+74,Indiana,Indiana
+75,Iowa,Iowa
+76,Northern Iowa,Iowa
+77,Iowa State,Iowa
+78,Kansas,Kansas
+79,Wichita State,Kansas
+80,Kansas State,Kansas
+81,Northern Kentucky,Kentucky
+82,Kentucky,Kentucky
+83,Eastern Kentucky,Kentucky
+84,Western Kentucky,Kentucky
+85,Morehead State,Kentucky
+86,Murray State,Kentucky
+87,Louisville,Kentucky
+88,UNLV ,Las Vegas
+89,Northwestern State,Louisiana
+90,Nicholls State,Louisiana
+91,McNeese State,Louisiana
+92,Grambling State,Louisiana
+93,Southeastern Louisiana,Louisiana
+94,Southern,Louisiana
+95,New Orleans,Louisiana 
+96,Louisiana,Louisiana
+97,Louisiana Tech,Louisiana
+98,Louisiana-Monroe,Louisiana
+99,LSU,Louisiana
+100,Maine,Maine
+101,Coppin State,Maryland
+102,Navy,Maryland
+103,Towson,Maryland
+104,Maryland,Maryland 
+105,Morgan State,Maryland 
+106,Maryland Eastern Shore,Maryland
+107,Maryland Baltimore County,Maryland 
+108,Massachusetts Lowell,Massachusetts
+109,Massachusetts,Massachusetts
+110,Oakland,Michigan 
+111,Western Michigan,Michigan 
+112,Eastern Michigan,Michigan
+113,Michigan,Michigan 
+114,Michigan State,Michigan
+115,Central Michigan,Michigan
+116,Minnesota,Minnesota 
+117,Mississippi,Mississippi
+118,Southern Mississippi,Mississippi
+119,Alcorn State,Mississippi
+120,Mississippi Valley State,Mississippi
+121,Missouri,Missouri
+122,Missouri-Kansas City,Missouri 
+123,Southeast Missouri State,Missouri
+124,Missouri State,Missouri
+125,Jackson State,Mississippi
+126,Mississippi State,Mississippi
+127,Montana,Montana
+128,Montana State,Montana 
+129,Nebraska Omaha,Nebraska
+130,Nebraska,Nebraska
+131,Nevada,Nevada
+132,New Hampshire,New Hampshire
+133,Rutgers,New Jersey
+134,NJIT,New Jersey
+135,New Mexico,New Mexico
+136,New Mexico State,New Mexico
+137,Albany,New York
+138,Army,New York 
+139,Binghamton,New York 
+140,Buffalo,New York
+141,Stony Brook,New York
+142,North Carolina at Ashville,North Carolina
+143,North Carolina at Greensboro,North Carolina
+144,North Carolina Wilmington,North Carolina
+145,North Carolina,North Carolina
+146,Western Carolina,North Carolina
+147,North Carolina State,North Carolina
+148,Appalachian State,North Carolina
+149,Charlotte,North Carolina
+150,East Carolina,North Carolina
+151,North Carolina A&T,North Carolina
+152,North Carolina Central,North Carolina 
+153,North Dakota,North Dakota
+154,North Dakota State,North Dakota
+155,Wright State,Ohio
+156,Youngstown State,Ohio
+157,Cleveland State,Ohio
+158,Kent State,Ohio 
+159,Miami (Ohio),Ohio
+160,Ohio,Ohio
+161,Ohio State,Ohio
+162,Toledo,Ohio
+163,Akron,Ohio
+164,Bowling Green,Ohio
+165,Cincinnati,Ohio
+166,Oklahoma ,Oklahoma
+167,Oklahoma State,Oklahoma
+168,Oregon,Oregon
+169,Oregon State,Oregon
+170,Portland State,Oregon
+171,Rhode Island,Rhode Island
+172,Winthrop,South Carolina
+173,College of Charleston ,South Carolina
+174,South Carolina Upstate,South Carolina
+175,South Carolina State,South Carolina
+176,Citadel,South Carolina
+177,Clemson,South Carolina
+178,Coastal Carolina,South Carolina
+179,South Carolina,South Carolina 
+180,South Dakota,South Dakota
+181,South Dakota State,South Dakota
+182,Middle Tennessee State,Tennessee
+183,Tennessee at Chattanooga,Tennessee
+184,Tennessee at Martin,Tennesse
+185,Tennessee State,Tennesse
+186,Tennessee Tech,Tennesse
+187,Austin Peay State,Tennesse
+188,East Tennessee State,Tennesse
+189,Memphis,Tennesse
+190,Tennessee,Tennesse
+191,UTEP,Texas
+192,UTSA,Texas
+193,Stephen F. Austin*,Texas
+194,Texas Southern,Texas
+195,Sam Houston State,Texas
+196,Prairie View A&M,Texas
+197,Houston,Texas
+198,Texas Tech,Texas
+199,Texas A&M-Corpus Christi,Texas
+200,Texas Rio Grande Valley (UTRGV),Texas
+201,Texas-Arlington*,Texas
+202,Lamar,Texas
+203,Texas A&M,Texas
+204,Texas State,Texas
+205,North Texas,Texas
+206,Texas,Texas
+207,Utah,Utah 
+208,Utah State,Utah 
+209,Southern Utah,Utah 
+210,Weber State,Utah 
+211,Vermont,Vermont
+212,George Mason,Virginia
+213,Longwood,Virginia
+214,Radford,Virginia
+215,Virginia Military Institute (VMI),Virginia
+216,William & Mary,Virginia
+217,James Madison,Virginia 
+218,Norfolk State,Virginia
+219,Virginia,Virginia
+220,Old Dominion,Virginia 
+221,Virginia Commonwealth (VCU),Virginia 
+222,Virginia Tech,Virginia 
+223,Washington  ,Washington
+224,Washington State,Washington
+225,Eastern Washington,Washington
+226,Marshall,West Virginia
+227,West Virginia,West Virginia
+228,Wisconsin,Wisconsin
+229,Wisconsin-Green Bay,Wisconsin
+230,Wisconsin-Milwaukee,Wisconsin
+231,Wyoming,Wyoming

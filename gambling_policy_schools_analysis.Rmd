@@ -214,12 +214,6 @@ I deleted a row because the school -- Northern Illinois -- had been entered twic
 
 As of Nov. 30, 2022, we have heard back from 97 schools. 64 of those schools (66%) are in states where sports gambling and betting is legal. 33 of the 64 schools do have a policy. 31 of the 64 schools don't. 
 
-**Finding #1**
-
-**Finding #2**
-
-**Finding #3**
-
 ```{r}
 # How many schools are in legal states?
 uni_policies_updated %>% 
