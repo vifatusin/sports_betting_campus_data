@@ -67,21 +67,17 @@ uni_policies_updated <- uni_policies_updated %>%
 
 
 ### The legality of sports betting in the states. 
+
+illegal <- c('Alabama', 'Alaska', 'California', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Kentucky', 'Minnesota', 'Missouri', 'Oklahoma', 'South Carolina', 'Texas', 'Utah', 'Vermont')
+
+legal <- c('Arizona','Arkansas','Colorado','Connecticut','Delaware','Illinois','Indiana','Iowa','Kansas','Louisiana','Maine','Maryland','Massachusetts','Michigan','Mississippi','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Ohio','Oregon','Pennsylvania','Rhode Island','South Dakota','Tennessee','Virginia','Washington','West Virginia','Wisconsin','Wyoming')
+
 uni_policies_updated <- uni_policies_updated %>% 
   mutate(legal_illegal = case_when(
-    state == 'Alabama' | state == 'Alaska' | state == 'California' | state == 'Florida' |
-    state == 'Georgia' | state == 'Hawaii' | state == 'Idaho' | state == 'Kentucky' | 
-    state == 'Minnesota' | state == 'Missouri' | state == 'Oklahoma' | state == 'South Carolina' |
-    state == 'Texas' | state == 'Utah' | state == 'Vermont' ~ "illegal",
-    state == 'Arizona' | state == 'Arkansas' | state == 'Colorado' | state == 'Connecticut' |
-    state == 'Delaware' | state == 'Illinois' | state == 'Indiana' | state == 'Iowa' | 
-    state == 'Kansas' | state == 'Louisiana' | state == 'Maine' | state == 'Maryland' | 
-    state == 'Massachusetts' | state == 'Michigan' | state == 'Mississippi' | state == 'Montana' |
-    state == 'Nebraska' | state == 'Nevada' | state == 'New Hampshire' | state == 'New Jersey' | 
-    state == 'New Mexico' | state == 'New York' | state == 'North Carolina' | state == 'North Dakota' |
-    state == 'Ohio' | state == 'Oregon' | state == 'Pennsylvania' | state == 'Rhode Island' | 
-    state == 'South Dakota' | state == 'Tennessee' | state == 'Virginia' | state == 'Washington' |
-    state == 'West Virginia' | state == 'Wisconsin' | state == 'Wyoming' ~ "legal"))
+    state %in% illegal ~ 'illegal',
+    state %in% legal ~ 'legal'
+    )
+  )
 
 ## Checking again to see if any other schools have been filled in twice or more. 
 uni_policies_updated %>% 
@@ -119,19 +115,10 @@ all_schools %>%
 ## Adding in new column: legality
 all_schools <- all_schools %>% 
   mutate(legal_illegal = case_when(
-    state == 'Alabama' | state == 'Alaska' | state == 'California' | state == 'Florida' |
-    state == 'Georgia' | state == 'Hawaii' | state == 'Idaho' | state == 'Kentucky' | 
-    state == 'Minnesota' | state == 'Missouri' | state == 'Oklahoma' | state == 'South Carolina' |
-    state == 'Texas' | state == 'Utah' | state == 'Vermont' ~ "illegal",
-    state == 'Arizona' | state == 'Arkansas' | state == 'Colorado' | state == 'Connecticut' |
-    state == 'Delaware' | state == 'Illinois' | state == 'Indiana' | state == 'Iowa' | 
-    state == 'Kansas' | state == 'Louisiana' | state == 'Maine' | state == 'Maryland' | 
-    state == 'Massachusetts' | state == 'Michigan' | state == 'Mississippi' | state == 'Montana' |
-    state == 'Nebraska' | state == 'Nevada' | state == 'New Hampshire' | state == 'New Jersey' | 
-    state == 'New Mexico' | state == 'New York' | state == 'North Carolina' | state == 'North Dakota' |
-    state == 'Ohio' | state == 'Oregon' | state == 'Pennsylvania' | state == 'Rhode Island' | 
-    state == 'South Dakota' | state == 'Tennessee' | state == 'Virginia' | state == 'Washington' |
-    state == 'West Virginia' | state == 'Wisconsin' | state == 'Wyoming' ~ "legal"))
+    state %in% illegal ~ 'illegal',
+    state %in% legal ~ 'legal'
+    )
+  )
 ```
 
 # Findings From Our Data
