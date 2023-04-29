@@ -21,17 +21,6 @@ library(ggplot2)
 library(dplyr)
 ```
 
-# Checking the article:
-Data Point #1: "The Povich and Howard centers asked 145 Division I public universities in states where sports betting is legal to share their campus policies that address gambling."
-Answer: See line 133.
-
-Data Point #2: "Forty-five responded and the Povich and Howard centers reviewed 19 more policies that were posted on universities’ websites."
-Answer: Line 134: "64 of those schools (44%) responded back to us. 42 schools mention sports betting (29%)."
-
-Data Point #3: "In all, less than half of the 64 schools had published betting policies."
-Answer: 
-
-
 # Our Data
 
 Student reporters in the Povich Center reached out to all 231 Division I public universities to ask for campus policies regarding gambling. The information received was put into an Google Forms sheet. 
@@ -133,9 +122,7 @@ all_schools <- all_schools %>%
 ```
 
 # Findings From Our Data
-In total, we've reached out to 145 schools (63% out of 231 schools) that are in states where sports betting is legal. 64 of those schools (44%) responded back to us. 42 schools mention sports betting (29%).
-
-As of Nov. 30, 2022, we have yet to hear from schools in the following legal states: Arkansas, Delaware, Maine, Massachusetts, Michigan, Montana, Nevada, New Hampshire, New Jersey, Pennsylvania, Rhode Island. 
+In total, we've reached out to 145 schools (63% out of 231 schools) that are in states where sports betting is legal. 64 of those schools (44%) responded back to us. 33 schools mention sports betting (23%).
 
 ```{r}
 # What is the total number of schools we sent request to in states where betting is legal?
