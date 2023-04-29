@@ -181,8 +181,10 @@ policy_legal_responded_schools = (33/64)*100           #51.56%
 
 
 # How many of those schools allow sports gambling by policy?
-uni_policies_updated %>% 
+legal_responded <- uni_policies_updated %>% 
   filter(legal_illegal == "legal" & school_policy_exist == "Yes" & allowed == "Yes")
+
+write.csv(legal_responded, "legal_responded.csv")
 
 ### Seven of those 33 schools (21.2%) permit sports betting by policy. 
 
